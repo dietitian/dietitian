@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache name="javass">
+	<defaultCache maxElementsInMemory="50000" eternal="false"
+		overflowToDisk="true" timeToLiveSeconds="120" timeToIdleSeconds="300"
+		diskPersistent="true" diskExpiryThreadIntervalSeconds="120" />
+
+	<cache name="com.stronginfo.transenly.entity.User" maxElementsInMemory="2000"
+		eternal="false" timeToIdleSeconds="3600" timeToLiveSeconds="3600"
+		overflowToDisk="false">
+	</cache>
+
+	<cache name="org.hibernate.cache.internal.StandardQueryCache"
+		maxElementsInMemory="5000" eternal="false" timeToLiveSeconds="3600"
+		overflowToDisk="false" />
+
+	<cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
+		maxElementsInMemory="5000" eternal="true" overflowToDisk="true" />
+
+	<!-- 硬盘目录 -->
+	<diskStore path="java.io.tmpdir" />
+</ehcache>

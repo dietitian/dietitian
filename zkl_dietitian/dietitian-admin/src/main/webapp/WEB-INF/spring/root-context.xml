@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<context:component-scan base-package="zkl.dietitian.service.*">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+		<property name="alias" value="proxoolDataSource" />
+		<property name="driver" value="${connection.driver_class}" />
+		<property name="driverUrl" value="${connection.url}" />
+		<property name="user" value="${connection.username}" />
+		<property name="password" value="${connection.password}" />
+		<property name="maximumConnectionCount" value="${proxool.maximum.connection.count}" />
+		<property name="minimumConnectionCount" value="${proxool.minimum.connection.count}" />
+		<property name="statistics" value="${proxool.statistics}" />
+		<property name="simultaneousBuildThrottle" value="${proxool.simultaneous.build.throttle}" />
+	</bean>
+
+
+	<!-- 配置SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="zkl.dietitian.entity.*" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.query.substitutions">${hibernate.query.substitutions}</prop>
+				<prop key="hibernate.default_batch_fetch_size">${hibernate.default_batch_fetch_size}</prop>
+				<prop key="hibernate.max_fetch_depth">${hibernate.max_fetch_depth}</prop>
+				<prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">${hibernate.bytecode.use_reflection_optimizer}</prop>
+
+				<prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+				<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+				<prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
+				<prop key="hibernate.cache.use_structured_entries">${hibernate.cache.use_structured_entries}</prop>
+				<prop key="net.sf.ehcache.configurationResourceName">${net.sf.ehcache.configurationResourceName}</prop>
+
+				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+				<prop key="jdbc.use_scrollable_resultset">false</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 配置一个事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- 配置事务，使用代理的方式 -->
+	<bean id="transactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="create*">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="update*">PROPAGATION_REQUIRED,-myException</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 国际化的消息资源文件 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<!-- 在web环境中一定要定位到classpath 否则默认到当前web应用下找 -->
+				<value>classpath:messages</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="cacheSeconds" value="60" />
+	</bean>
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:resources.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+     <!-- 表单验证 -->
+    <bean id="validatorFactory" class="org.springmodules.validation.commons.DefaultValidatorFactory">  
+        <property name="validationConfigLocations">  
+            <list>  
+                <value>classpath:validator-rules.xml</value>  
+                <value>classpath:validation.xml</value>  
+            </list>  
+        </property>  
+    </bean>  
+    <bean id="beanValidator" class="org.springmodules.validation.commons.DefaultBeanValidator">  
+        <property name="validatorFactory" ref="validatorFactory"/>  
+    </bean>  
+	
+	
+	<!-- 权限控制 -->
+	<bean id="userDao" class="zkl.dietitian.dao.daoImpl.CommonDaoImpl">
+		<constructor-arg index="0" value="zkl.dietitian.entity.privilege.User"></constructor-arg>
+	</bean>
+	 <bean id="roleDao" class="zkl.dietitian.dao.daoImpl.CommonDaoImpl">
+		<constructor-arg index="0" value="zkl.dietitian.entity.privilege.Role"></constructor-arg>
+	</bean>
+	 <bean id="functionDao" class="zkl.dietitian.dao.daoImpl.CommonDaoImpl">
+		<constructor-arg index="0" value="zkl.dietitian.entity.privilege.Function"></constructor-arg>
+	</bean>
+	 <bean id="privilegeDao" class="zkl.dietitian.dao.daoImpl.CommonDaoImpl">
+		<constructor-arg index="0" value="zkl.dietitian.entity.privilege.Privilege"></constructor-arg>
+	</bean>
+	 <bean id="moduleDao" class="zkl.dietitian.dao.daoImpl.CommonDaoImpl">
+		<constructor-arg index="0" value="zkl.dietitian.entity.privilege.Module"></constructor-arg>
+	</bean>
+	
+	<!--代码表主表 -->
+	<bean id="codeMainDao" class="zkl.dietitian.dao.daoImpl.CommonDaoImpl">
+		<constructor-arg index="0" value="zkl.dietitian.entity.system.CodeMain"></constructor-arg>
+	</bean>
+	<!--代码表 -->
+	<bean id="codeDao" class="zkl.dietitian.dao.daoImpl.CommonDaoImpl">
+		<constructor-arg index="0" value="zkl.dietitian.entity.system.Code"></constructor-arg>
+	</bean>
+	<!-- 访问日志 -->
+	<bean id="accessLogDao" class="zkl.dietitian.dao.daoImpl.CommonDaoImpl">
+		<constructor-arg index="0" value="zkl.dietitian.entity.log.AccessLog"></constructor-arg>
+	</bean>
+	
+	<!-- 营养成分表 -->
+	<bean id="nutritionDao" class="zkl.dietitian.dao.daoImpl.CommonDaoImpl">
+		<constructor-arg index="0" value="zkl.dietitian.entity.datastore.Nutrition"></constructor-arg>
+	</bean>
+	
+</beans>
