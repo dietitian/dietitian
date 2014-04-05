@@ -67,7 +67,7 @@ public class AccessLogServiceImpl implements AccessLogService{
 	}
 	/*
 	 * 获取focusmap的数据
-	 * @see com.stronginfo.transenly.service.log.AccessLogService#getFocusMapList()
+	 * @see 
 	 */
 	@Override
 	public HashMap<String, Object> getFocusMap(String type ,String startTime , String endTime) {

@@ -116,7 +116,7 @@ function deleteFunctions(id){
 								 requestURI="${pageContext.request.contextPath}/module/managerFunction/${module.id}"
 								>
 								
-									<display:column property="id" title="" style="width:5%;" decorator="com.stronginfo.transenly.admin.displayTag.CheckBoxDecractor" >
+									<display:column property="id" title="" style="width:5%;" decorator="zkl.dietitian.utils.displaytag.CheckBoxDecractor" >
 										
 									</display:column>
 									<display:column property="name" title="名称" />
@@ -167,7 +167,7 @@ function deleteFunctions(id){
 									 requestURI="${pageContext.request.contextPath}/module/managerFunction/${module.id}"
 									>
 									
-										<display:column property="id" title="" style="width:5%;" decorator="com.stronginfo.transenly.admin.displayTag.CheckBoxDecractorB" >
+										<display:column property="id" title="" style="width:5%;" decorator="zkl.dietitian.utils.displaytag.CheckBoxDecractorB" >
 											
 										</display:column>
 										<display:column property="name" title="名称" />

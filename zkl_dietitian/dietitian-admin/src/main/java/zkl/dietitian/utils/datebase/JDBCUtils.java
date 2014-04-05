@@ -12,7 +12,7 @@ public class JDBCUtils {
 	private static ComboPooledDataSource ds;
 	
 	static{
-		ds = new ComboPooledDataSource("transenly");
+		ds = new ComboPooledDataSource("dietitian");
 	}
 	
 	/**

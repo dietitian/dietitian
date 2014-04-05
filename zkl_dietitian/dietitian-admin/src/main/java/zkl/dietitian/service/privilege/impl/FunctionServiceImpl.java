@@ -57,7 +57,7 @@ public class FunctionServiceImpl implements FunctionService {
 	}
 	/*
 	 * 添加权限资源
-	 * @see com.stronginfo.transenly.service.privilege.FunctionService#addPrivilege(java.lang.String[], java.lang.Integer)
+	 * @see 
 	 */
 	@Override
 	public void addPrivileges(String[] ids, Integer id) {

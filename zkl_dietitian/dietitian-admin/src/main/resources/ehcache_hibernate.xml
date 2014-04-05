@@ -4,7 +4,7 @@
 		overflowToDisk="true" timeToLiveSeconds="120" timeToIdleSeconds="300"
 		diskPersistent="true" diskExpiryThreadIntervalSeconds="120" />
 
-	<cache name="com.stronginfo.transenly.entity.User" maxElementsInMemory="2000"
+	<cache name="zkl.dietitian.entity.privilege.User" maxElementsInMemory="2000"
 		eternal="false" timeToIdleSeconds="3600" timeToLiveSeconds="3600"
 		overflowToDisk="false">
 	</cache>

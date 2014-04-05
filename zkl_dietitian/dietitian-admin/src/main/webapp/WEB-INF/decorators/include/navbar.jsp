@@ -3,7 +3,7 @@
 
 <div class="navbar-header pull-left">
 	<a href="#" class="navbar-brand"> <small> <i
-			class="icon-leaf"></i> Transenly 后台管理
+			class="icon-leaf"></i> dietitian 后台管理
 	</small>
 	</a>
 	<!-- /.brand -->

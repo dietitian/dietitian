@@ -28,7 +28,7 @@
             ref="myFilter" />
     </http>
     
-    <beans:bean id="myFilter" class="com.stronginfo.transenly.admin.security.MyFilterSecurityInterceptor">
+    <beans:bean id="myFilter" class="zkl.dietitian.security.MyFilterSecurityInterceptor">
         <beans:property name="authenticationManager"  ref="authenticationManager" />
         <beans:property name="accessDecisionManager"  ref="myAccessDecisionManagerBean" />
         <beans:property name="securityMetadataSource"  ref="securityMetadataSource" />
@@ -44,7 +44,7 @@
         </authentication-provider>
     </authentication-manager>
     <beans:bean id="myUserDetailService"
-        class="com.stronginfo.transenly.admin.security.MyUserDetailService" >
+        class="zkl.dietitian.security.MyUserDetailService" >
         <beans:constructor-arg >
         <beans:ref bean="sessionFactory"></beans:ref>
         </beans:constructor-arg>
@@ -52,13 +52,13 @@
 
     <!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源 -->
     <beans:bean id="myAccessDecisionManagerBean"
-        class="com.stronginfo.transenly.admin.security.MyAccessDecisionManager">
+        class="zkl.dietitian.security.MyAccessDecisionManager">
         
     </beans:bean>
     
     <!-- 资源源数据定义，即定义某一资源可以被哪些角色访问 -->
     <beans:bean id="securityMetadataSource"
-        class="com.stronginfo.transenly.admin.security.MyInvocationSecurityMetadataSource" >
+        class="zkl.dietitian.security.MyInvocationSecurityMetadataSource" >
         <beans:constructor-arg ><beans:ref bean="sessionFactory"></beans:ref></beans:constructor-arg>
      </beans:bean>
 	

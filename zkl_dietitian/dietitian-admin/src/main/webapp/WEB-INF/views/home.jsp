@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-<title>创生力</title>
+<title>小小营养师</title>
 </head>
 <body>
 	<p>

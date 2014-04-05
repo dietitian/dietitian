@@ -15,7 +15,7 @@
 		</user-overrides>
 	</default-config> 
 	<!-- 命名的配置 -->
-	<named-config name="transenly">
+	<named-config name="dietitian">
 		<property name="driverClass">com.mysql.jdbc.Driver</property>
 		<property name="jdbcUrl">jdbc:mysql://localhost:3306/dietitian?useUnicode=true&amp;characterEncoding=UTF-8</property>
 		<property name="user">dietitian</property>

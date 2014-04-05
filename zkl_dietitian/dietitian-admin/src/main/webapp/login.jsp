@@ -137,7 +137,7 @@ input[type=password] {
 	<div
 		style="width: 900px; height: 50px; position: absolute; text-align: left; left: 50%; top: 50%; margin-left: -450px;; margin-top: -280px;">
 		<img src="${pageContext.request.contextPath }/static/images/logo.png" style="border-width: 0; margin-left: 0;" />
-		<span style="float: right; margin-top: 35px; color: #488ED5;">创生力后台管理系统</span>
+		<span style="float: right; margin-top: 35px; color: #488ED5;">小小营养师后台管理系统</span>
 	</div>
 	<div class="main-inner" id="mainCnt"
 		style="width: 900px; height: 440px; overflow: hidden; position: absolute; left: 50%; top: 50%; margin-left: -450px; margin-top: -220px; background-image: url('${pageContext.request.contextPath }/static/images/bg_login.jpg')">
@@ -183,10 +183,10 @@ input[type=password] {
 	</div>
 	<div
 		style="width: 900px; height: 50px; position: absolute; text-align: left; left: 50%; top: 50%; margin-left: -450px;; margin-top: 220px;">
-		<span style="color: #488ED5;">Powered By www.transenly.com</span><span
+		<span style="color: #488ED5;">Powered By www.dietitian.com</span><span
 			style="color: #488ED5;margin-left:10px;">推荐浏览器（右键链接-目标另存为）：<a
 			href="${pageContext.request.contextPath }/Firefox.rar">Firefox</a>
-		</span><span style="float: right; color: #488ED5;">创生力后台管理系统</span>
+		</span><span style="float: right; color: #488ED5;">小小营养师后台管理系统</span>
 	</div>
 </body>
 </html>
